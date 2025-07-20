@@ -239,19 +239,19 @@
 
           actualizarEstadoCurso(div, curso);
 
-       div.addEventListener("click", () => {
-  if (div.classList.contains("locked")) return;
+["click", "touchend"].forEach(evento => {
+  div.addEventListener(evento, () => {
+    if (div.classList.contains("locked")) return;
 
-  estadoCursos[curso] = !estadoCursos[curso];
-  localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
+    estadoCursos[curso] = !estadoCursos[curso];
+    localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
 
-  // Actualiza todos los cursos en pantalla
-document.querySelectorAll('.course').forEach(cursoDiv => {
+    document.querySelectorAll('.course').forEach(cursoDiv => {
       const nombre = cursoDiv.dataset.nombre;
       actualizarEstadoCurso(cursoDiv, nombre);
+    });
   });
 });
-
         semDiv.appendChild(div);
       });
 
