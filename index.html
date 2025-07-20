@@ -195,23 +195,23 @@
       "Prevención en salud": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación"]
     };
 
-     const estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
+    
+    const estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
 
     function actualizarEstadoCurso(div, curso) {
-      const requisitos = prerrequisitos[curso] || [];
-      const bloqueado = requisitos.some(r => !estadoCursos[r]);
+  const requisitos = prerrequisitos[curso] || [];
+  const bloqueado = requisitos.some(r => !estadoCursos[r]);
 
-      div.classList.remove("approved", "locked");
-      div.title = "";
+  div.classList.remove("approved", "locked");
+  div.title = "";
 
-      if (estadoCursos[curso]) {
-        div.classList.add("approved");
-      } else if (bloqueado) {
-        div.classList.add("locked");
-        div.title = `Prerrequisitos: ${requisitos.filter(r => !estadoCursos[r]).join(", ")}`;
-      }
-    }
-
+  if (estadoCursos[curso]) {
+    div.classList.add("approved");
+  } else if (bloqueado) {
+    div.classList.add("locked");
+    div.title = `Prerrequisitos: ${requisitos.filter(r => !estadoCursos[r]).join(", ")}`;
+  }
+}
     for (const anio in semestrePorAnio) {
       const yearDiv = document.createElement("div");
       yearDiv.className = "year";
@@ -221,9 +221,6 @@
       yearTitle.className = "year-title";
       yearTitle.textContent = anio;
       yearDiv.appendChild(yearTitle);
-
-      const semesterContainer = document.createElement("div");
-      semesterContainer.className = "semester-container";
 
       semestrePorAnio[anio].forEach(sem => {
         const semDiv = document.createElement("div");
@@ -241,24 +238,25 @@
 
           actualizarEstadoCurso(div, curso);
 
-          div.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (div.classList.contains("locked")) return;
-            estadoCursos[curso] = !estadoCursos[curso];
-            localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
-            actualizarEstadoCurso(div, curso);
-          });
+          div.addEventListener("click", () => {
+          if (div.classList.contains("locked")) return;
 
-          semDiv.appendChild(div);
+          estadoCursos[curso] = !estadoCursos[curso];
+          localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
+          document.querySelectorAll('.course').forEach(cursoDiv => {
+            const nombre = cursoDiv.textContent;
+            actualizarEstadoCurso(cursoDiv, nombre);
+          });
         });
 
-        semesterContainer.appendChild(semDiv);
+        semDiv.appendChild(div);
       });
 
-      yearDiv.appendChild(semesterContainer);
-      malla.appendChild(yearDiv);
-    }
+      yearDiv.appendChild(semDiv);
+    });
+
+    malla.appendChild(yearDiv);
+  }
   </script>
 </body>
 </html>
