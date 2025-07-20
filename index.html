@@ -214,10 +214,11 @@
   const estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
 
   function actualizarEstadoCurso(div, curso) { 
-    console.log(`Curso: ${curso} | Requisitos: ${requisitos.join(", ")} | Aprobado: ${aprobado} | Bloqueado: ${bloqueado}`);
     const requisitos = prerrequisitos[curso] || [];
     const aprobado = !!estadoCursos[curso];
     const bloqueado = requisitos.some(r => !estadoCursos[r]);
+
+    console.log(`Curso: ${curso} | Requisitos: ${requisitos.join(", ")} | Aprobado: ${aprobado} | Bloqueado: ${bloqueado}`);
 
     div.classList.remove("approved", "locked");
     div.title = "";
