@@ -16,7 +16,7 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
     }
     .semester {
@@ -67,17 +67,63 @@
 
   <script>
     const cursos = [
+      // PRIMER AÑO
       { nombre: "Matemáticas", id: "matematicas" },
       { nombre: "Biología Celular", id: "biologia" },
       { nombre: "Química general y Orgánica", id: "quimica" },
-      { nombre: "Ingles I", id: "ingles1" },
+      { nombre: "Inglés I", id: "ingles1" },
+
       { nombre: "Introducción a la física", id: "fisica", prereq: ["matematicas"] },
       { nombre: "Bioquímica General", id: "bioquimica", prereq: ["biologia", "quimica"] },
-      { nombre: "Histoembriología", id: "histoembriologia", prereq: ["biologia"] },
+      { nombre: "Histoembriología", id: "histo", prereq: ["biologia"] },
       { nombre: "Anatomía Humana", id: "anatomia" },
-      { nombre: "Ingles II", id: "ingles2", prereq: ["ingles1"] },
+      { nombre: "Inglés II", id: "ingles2", prereq: ["ingles1"] },
       { nombre: "Estrategias para el aprendizaje", id: "estrategias" },
-      // Puedes continuar aquí con el resto de los cursos siguiendo la misma lógica.
+
+      // SEGUNDO AÑO
+      { nombre: "Inmunología Básica", id: "inmunologia", prereq: ["histo"] },
+      { nombre: "Fisiología Humana", id: "fisiologia", prereq: ["anatomia", "biologia"] },
+      { nombre: "Anatomía Humana Avanzada", id: "anatomia2", prereq: ["anatomia"] },
+      { nombre: "Bioseguridad y procedimientos de Enfermería", id: "bioseguridad", prereq: ["anatomia"] },
+      { nombre: "Bioestadística", id: "bioestadistica", prereq: ["matematicas"] },
+      { nombre: "Antropología", id: "antropologia" },
+
+      { nombre: "Orientación profesional y bioética", id: "orientacion" },
+      { nombre: "Fisiopatología Humana", id: "fisiopato", prereq: ["fisiologia"] },
+      { nombre: "Psicología de la atención al paciente", id: "psicologia" },
+      { nombre: "Infectología General", id: "infectologia", prereq: ["inmunologia"] },
+      { nombre: "Farmacología General", id: "farmacologia", prereq: ["fisiologia", "bioquimica"] },
+      { nombre: "Ética", id: "etica" },
+
+      // TERCER AÑO
+      { nombre: "Radiodiagnóstico I", id: "radio1", prereq: ["fisica", "bioquimica", "histo", "anatomia", "ingles2", "estrategias", "inmunologia", "fisiologia", "anatomia2", "bioseguridad", "bioestadistica", "antropologia", "orientacion", "fisiopato", "psicologia", "infectologia", "farmacologia", "etica"] },
+      { nombre: "Anatomía radiológica", id: "anatoradio", prereq: ["radio1"] },
+      { nombre: "Radioprotección y dosimetría", id: "radioproteccion", prereq: ["radio1"] },
+      { nombre: "Radiofísica", id: "radiofisica", prereq: ["radio1"] },
+      { nombre: "Epidemiología y Salud pública", id: "epidemio", prereq: ["radio1"] },
+
+      { nombre: "Radiodiagnóstico II", id: "radio2", prereq: ["radio1", "radioproteccion"] },
+      { nombre: "Electrónica médica", id: "electronica", prereq: ["radiofisica"] },
+      { nombre: "Patología radiológica", id: "patologia", prereq: ["anatoradio"] },
+      { nombre: "Administración y gestión en salud", id: "gestion", prereq: ["epidemio"] },
+
+      // CUARTO AÑO
+      { nombre: "Resonancia Magnética", id: "rmn", prereq: ["radio2", "patologia"] },
+      { nombre: "Tomografía computada", id: "tc", prereq: ["radio2", "patologia"] },
+      { nombre: "Neuroimagenología", id: "neuro", prereq: ["patologia"] },
+      { nombre: "Gestión y garantías de calidad", id: "calidad", prereq: ["gestion"] },
+
+      { nombre: "Medicina nuclear", id: "nuclear", prereq: ["radio2", "patologia"] },
+      { nombre: "Radioterapia", id: "radioterapia", prereq: ["tc"] },
+      { nombre: "Introducción a la ecografía", id: "eco", prereq: ["radio2", "patologia"] },
+      { nombre: "Análisis clínico integrado", id: "analisis", prereq: ["rmn", "tc", "neuro", "calidad"] },
+      { nombre: "Bioestadística aplicada y metodología de la investigación", id: "metodoinv", prereq: ["epidemio"] },
+
+      // QUINTO AÑO
+      { nombre: "Internado", id: "internado", prereq: ["nuclear", "radioterapia", "eco", "analisis", "metodoinv"] },
+      { nombre: "Seminario de investigación", id: "seminario", prereq: ["nuclear", "radioterapia", "eco", "analisis", "metodoinv"] },
+      { nombre: "Formulación de proyectos", id: "proyectos", prereq: ["nuclear", "radioterapia", "eco", "analisis", "metodoinv"] },
+      { nombre: "Prevención en salud", id: "prevencion", prereq: ["nuclear", "radioterapia", "eco", "analisis", "metodoinv"] }
     ];
 
     const malla = document.getElementById('malla');
@@ -87,7 +133,7 @@
       div.className = 'course';
       div.textContent = curso.nombre;
       div.dataset.id = curso.id;
-      if (curso.prereq) div.dataset.tooltip = `Requiere: ${curso.prereq.join(', ')}`;
+      if (curso.prereq) div.dataset.tooltip = `Requiere: ${curso.prereq.map(id => cursos.find(c => c.id === id)?.nombre || id).join(', ')}`;
       return div;
     }
 
