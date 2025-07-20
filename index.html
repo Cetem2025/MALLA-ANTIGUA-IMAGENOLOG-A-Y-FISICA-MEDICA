@@ -2,54 +2,40 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Malla Interactiva Tecnología Médica</title>
   <style>
     body {
       font-family: 'Georgia', serif;
       background: #f4f6f8;
-      padding: 40px;
+      padding: 20px;
       color: #333;
+      margin: 0;
     }
     h1 {
       text-align: center;
-      font-size: 28px;
-      margin-bottom: 40px;
-      color: #2c3e50;
-    }
-    .scroll-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-    .scroll-button {
-      background: #1a237e;
-      color: white;
-      border: none;
       font-size: 24px;
-      padding: 10px 16px;
-      border-radius: 6px;
-      cursor: pointer;
+      margin-bottom: 30px;
+      color: #2c3e50;
+      padding: 0 10px;
     }
     .year-container {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       gap: 30px;
-      overflow-x: auto;
-      scroll-behavior: smooth;
     }
     .year {
       display: flex;
       flex-direction: column;
       gap: 20px;
       padding: 20px;
-      min-width: 580px;
       border-radius: 12px;
       border-top: 5px solid #2c3e50;
       background-color: #fff;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     .year-title {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: bold;
       margin-bottom: 5px;
       border-bottom: 2px solid #ccc;
@@ -59,18 +45,15 @@
     }
     .semester-container {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       gap: 20px;
-      overflow-x: auto;
     }
     .semester {
-      flex: 0 0 auto;
       padding: 15px;
       background: #fdfdfd;
       border: 1px solid #ccc;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      width: 260px;
     }
     .semester-title {
       font-size: 18px;
@@ -103,13 +86,24 @@
       background-color: #ede7f6;
     }
     @media (max-width: 768px) {
-      .year {
-        min-width: 100%;
+      body {
+        padding: 10px;
       }
-      .scroll-buttons {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
+      h1 {
+        font-size: 20px;
+      }
+      .year {
+        padding: 15px;
+      }
+      .year-title {
+        font-size: 18px;
+      }
+      .semester-title {
+        font-size: 16px;
+      }
+      .course {
+        font-size: 14px;
+        padding: 6px 8px;
       }
     }
   </style>
@@ -198,7 +192,7 @@
       "Prevención en salud": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación"]
     };
 
-    const estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
+  const estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
 
     for (const anio in semestrePorAnio) {
       const yearDiv = document.createElement("div");
@@ -253,10 +247,7 @@
       yearDiv.appendChild(semesterContainer);
       malla.appendChild(yearDiv);
     }
-
-    function scrollMalla(offset) {
-      malla.scrollBy({ left: offset, behavior: 'smooth' });
-    }
   </script>
 </body>
 </html>
+
