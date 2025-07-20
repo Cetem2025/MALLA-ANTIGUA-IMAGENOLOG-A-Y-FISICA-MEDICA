@@ -30,6 +30,8 @@
       margin-bottom: 15px;
       border-bottom: 2px solid #ccc;
       padding-bottom: 8px;
+      text-transform: uppercase;
+      color: #1a237e;
     }
     .semester {
       display: inline-block;
@@ -94,6 +96,22 @@
       "Semestre 10": ["Seminario de investigación", "Formulación de proyectos", "Prevención en salud"]
     };
 
+    const semestrePorAnio = {
+      "Primer Año": ["Semestre 1", "Semestre 2"],
+      "Segundo Año": ["Semestre 3", "Semestre 4"],
+      "Tercer Año": ["Semestre 5", "Semestre 6"],
+      "Cuarto Año": ["Semestre 7", "Semestre 8"],
+      "Quinto Año": ["Semestre 9", "Semestre 10"]
+    };
+
+    const colorPorAnio = {
+      "Primer Año": "celeste",
+      "Segundo Año": "celeste",
+      "Tercer Año": "morado",
+      "Cuarto Año": "morado",
+      "Quinto Año": "morado"
+    };
+
     const prerrequisitos = {
       "Introducción a la Física": ["Matemáticas"],
       "Bioquímica General": ["Biología Celular", "Química General y Orgánica"],
@@ -126,22 +144,6 @@
       "Seminario de investigación": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación", "Formulación de proyectos"],
       "Formulación de proyectos": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación", "Seminario de investigación"],
       "Prevención en salud": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación"]
-    };
-
-    const semestrePorAnio = {
-      "Primer Año": ["Semestre 1", "Semestre 2"],
-      "Segundo Año": ["Semestre 3", "Semestre 4"],
-      "Tercer Año": ["Semestre 5", "Semestre 6"],
-      "Cuarto Año": ["Semestre 7", "Semestre 8"],
-      "Quinto Año": ["Semestre 9", "Semestre 10"]
-    };
-
-    const colorPorAnio = {
-      "Primer Año": "celeste",
-      "Segundo Año": "celeste",
-      "Tercer Año": "morado",
-      "Cuarto Año": "morado",
-      "Quinto Año": "morado"
     };
 
     const estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
