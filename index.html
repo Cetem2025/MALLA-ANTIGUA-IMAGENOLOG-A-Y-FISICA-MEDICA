@@ -17,6 +17,11 @@
       color: #2c3e50;
     }
     .year {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-start;
       margin-bottom: 50px;
       padding: 20px;
       border-radius: 12px;
@@ -25,6 +30,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     .year-title {
+      flex-basis: 100%;
       font-size: 24px;
       font-weight: bold;
       margin-bottom: 15px;
@@ -36,7 +42,6 @@
     .semester {
       display: inline-block;
       vertical-align: top;
-      margin: 10px 20px 20px 0;
       padding: 15px;
       background: #fdfdfd;
       border: 1px solid #ccc;
@@ -113,7 +118,7 @@
     };
 
     const prerrequisitos = {
-      "Introducción a la Física": ["Matemáticas"],
+       "Introducción a la Física": ["Matemáticas"],
       "Bioquímica General": ["Biología Celular", "Química General y Orgánica"],
       "Histoembriología": ["Biología Celular"],
       "Inglés II": ["Inglés I"],
@@ -184,7 +189,6 @@
 
           div.addEventListener("click", () => {
             if (div.classList.contains("locked")) return;
-
             estadoCursos[curso] = !estadoCursos[curso];
             localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
             location.reload();
