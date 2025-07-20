@@ -2,190 +2,209 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Malla Curricular Tecnología Médica</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Curricular - Imagenología y Física Médica</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f0f4f8;
       margin: 0;
       padding: 20px;
+      color: #333;
     }
     h1 {
       text-align: center;
-      color: #333;
+      margin-bottom: 30px;
     }
-    .grid {
+    .container {
       display: flex;
       flex-wrap: nowrap;
       overflow-x: auto;
-      gap: 16px;
-      padding-bottom: 20px;
+      gap: 20px;
+    }
+    .year {
+      min-width: 300px;
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
     .semester {
-      min-width: 250px;
-      background: #fff;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      flex-shrink: 0;
+      margin-bottom: 20px;
     }
     .semester h3 {
-      margin-top: 0;
-      color: #0077b6;
-      font-size: 1.1em;
+      background-color: #cce5ff;
+      padding: 10px;
+      border-radius: 8px;
       text-align: center;
     }
-    .course {
+    .subject {
+      background-color: #e9ecef;
       margin: 8px 0;
       padding: 8px;
-      background-color: #e6f2ff;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
       position: relative;
     }
-    .course.locked {
-      background-color: #ddd;
-      color: #666;
+    .subject.locked {
+      background-color: #d6d8db;
       cursor: not-allowed;
     }
-    .course:hover::after {
+    .subject::after {
       content: attr(data-tooltip);
-      position: absolute;
-      left: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #333;
+      visibility: hidden;
+      opacity: 0;
+      background-color: #333;
       color: #fff;
-      padding: 5px;
-      border-radius: 5px;
+      text-align: center;
+      padding: 6px;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: opacity 0.2s;
       white-space: nowrap;
-      z-index: 10;
+      font-size: 12px;
     }
-    .course.approved {
-      background-color: #a7f3d0;
+    .subject.locked:hover::after {
+      visibility: visible;
+      opacity: 1;
+    }
+    .subject.completed {
       text-decoration: line-through;
+      background-color: #b2f0b2;
     }
   </style>
 </head>
 <body>
-  <h1>Malla Curricular Tecnología Médica: Imagenología y Física Médica</h1>
-  <div class="grid" id="malla"></div>
+  <h1>Malla Curricular: Imagenología y Física Médica (Antigua)</h1>
+  <div class="container" id="malla"></div>
 
   <script>
-    const cursos = {
-      "Primer Semestre": ["matematicas", "biologia", "quimica", "ingles1"],
-      "Segundo Semestre": ["fisica", "bioquimica", "histo", "anatomia", "ingles2", "estrategias"],
-      "Tercer Semestre": ["inmunologia", "fisiologia", "anatomia2", "bioseguridad", "bioestadistica", "antropologia"],
-      "Cuarto Semestre": ["orientacion", "fisiopato", "psicologia", "infectologia", "farmacologia", "etica"],
-      "Quinto Semestre": ["radio1", "anatoradio", "radioproteccion", "radiofisica", "epidemio"],
-      "Sexto Semestre": ["radio2", "electronica", "patologia", "gestion"],
-      "Séptimo Semestre": ["rmn", "tc", "neuro", "calidad"],
-      "Octavo Semestre": ["nuclear", "radioterapia", "eco", "analisis", "metodoinv"],
-      "Noveno Semestre": ["internado"],
-      "Décimo Semestre": ["seminario", "proyectos", "prevencion"]
-    };
-
-    const datos = {
-      "matematicas": { nombre: "Matemáticas" },
-      "biologia": { nombre: "Biología Celular" },
-      "quimica": { nombre: "Química general y Orgánica" },
-      "ingles1": { nombre: "Inglés I" },
-      "fisica": { nombre: "Introducción a la física", prereq: ["matematicas"] },
-      "bioquimica": { nombre: "Bioquímica General", prereq: ["biologia", "quimica"] },
-      "histo": { nombre: "Histoembriología", prereq: ["biologia"] },
-      "anatomia": { nombre: "Anatomía Humana" },
-      "ingles2": { nombre: "Inglés II", prereq: ["ingles1"] },
-      "estrategias": { nombre: "Estrategias para el aprendizaje" },
-      "inmunologia": { nombre: "Inmunología Básica", prereq: ["histo"] },
-      "fisiologia": { nombre: "Fisiología Humana", prereq: ["anatomia", "biologia"] },
-      "anatomia2": { nombre: "Anatomía Humana Avanzada", prereq: ["anatomia"] },
-      "bioseguridad": { nombre: "Bioseguridad y procedimientos de Enfermería", prereq: ["anatomia"] },
-      "bioestadistica": { nombre: "Bioestadística", prereq: ["matematicas"] },
-      "antropologia": { nombre: "Antropología" },
-      "orientacion": { nombre: "Orientación profesional y bioética" },
-      "fisiopato": { nombre: "Fisiopatología Humana", prereq: ["fisiologia"] },
-      "psicologia": { nombre: "Psicología de la atención al paciente" },
-      "infectologia": { nombre: "Infectología General", prereq: ["inmunologia"] },
-      "farmacologia": { nombre: "Farmacología General", prereq: ["fisiologia", "bioquimica"] },
-      "etica": { nombre: "Ética" },
-      "radio1": { nombre: "Radiodiagnóstico I", prereq: ["fisica", "bioquimica", "histo", "anatomia", "ingles2", "estrategias", "inmunologia", "fisiologia", "anatomia2", "bioseguridad", "bioestadistica", "antropologia", "orientacion", "fisiopato", "psicologia", "infectologia", "farmacologia", "etica"] },
-      "anatoradio": { nombre: "Anatomía radiológica", prereq: ["radio1"] },
-      "radioproteccion": { nombre: "Radioprotección y dosimetría", prereq: ["radio1"] },
-      "radiofisica": { nombre: "Radiofísica", prereq: ["radio1"] },
-      "epidemio": { nombre: "Epidemiología y Salud pública", prereq: ["radio1"] },
-      "radio2": { nombre: "Radiodiagnóstico II", prereq: ["radio1", "radioproteccion"] },
-      "electronica": { nombre: "Electrónica médica", prereq: ["radiofisica"] },
-      "patologia": { nombre: "Patología radiológica", prereq: ["anatoradio"] },
-      "gestion": { nombre: "Administración y gestión en salud", prereq: ["epidemio"] },
-      "rmn": { nombre: "Resonancia Magnética", prereq: ["radio2", "patologia"] },
-      "tc": { nombre: "Tomografía computada", prereq: ["radio2", "patologia"] },
-      "neuro": { nombre: "Neuroimagenología", prereq: ["patologia"] },
-      "calidad": { nombre: "Gestión y garantías de calidad", prereq: ["gestion"] },
-      "nuclear": { nombre: "Medicina nuclear", prereq: ["radio2", "patologia"] },
-      "radioterapia": { nombre: "Radioterapia", prereq: ["tc"] },
-      "eco": { nombre: "Introducción a la ecografía", prereq: ["radio2", "patologia"] },
-      "analisis": { nombre: "Análisis clínico integrado", prereq: ["rmn", "tc", "neuro", "calidad"] },
-      "metodoinv": { nombre: "Bioestadística aplicada y metodología de la investigación", prereq: ["epidemio"] },
-      "internado": { nombre: "Internado", prereq: ["nuclear", "radioterapia", "eco", "analisis", "metodoinv"] },
-      "seminario": { nombre: "Seminario de investigación", prereq: ["nuclear", "radioterapia", "eco", "analisis", "metodoinv"] },
-      "proyectos": { nombre: "Formulación de proyectos", prereq: ["nuclear", "radioterapia", "eco", "analisis", "metodoinv"] },
-      "prevencion": { nombre: "Prevención en salud", prereq: ["nuclear", "radioterapia", "eco", "analisis", "metodoinv"] }
-    };
-
-    const contenedor = document.getElementById("malla");
-
-    function crearCurso(id) {
-      const curso = datos[id];
-      const div = document.createElement("div");
-      div.className = "course";
-      div.textContent = curso.nombre;
-      div.dataset.id = id;
-      if (curso.prereq) {
-        div.dataset.tooltip = `Requiere: ${curso.prereq.map(pid => datos[pid]?.nombre || pid).join(", ")}`;
+    const malla = {
+      'PRIMER AÑO': {
+        'PRIMER SEMESTRE': [
+          { nombre: 'Matemáticas' },
+          { nombre: 'Biología Celular' },
+          { nombre: 'Química general y Orgánica' },
+          { nombre: 'Inglés I' }
+        ],
+        'SEGUNDO SEMESTRE': [
+          { nombre: 'Introducción a la física', prereq: ['Matemáticas'] },
+          { nombre: 'Bioquímica General', prereq: ['Biología Celular', 'Química general y Orgánica'] },
+          { nombre: 'Histoembriología', prereq: ['Biología Celular'] },
+          { nombre: 'Anatomía Humana' },
+          { nombre: 'Inglés II', prereq: ['Inglés I'] },
+          { nombre: 'Estrategias para el aprendizaje' }
+        ]
+      },
+      'SEGUNDO AÑO': {
+        'TERCER SEMESTRE': [
+          { nombre: 'Inmunología Básica', prereq: ['Histoembriología'] },
+          { nombre: 'Fisiología Humana', prereq: ['Anatomía Humana', 'Biología Celular'] },
+          { nombre: 'Anatomía Humana Avanzada', prereq: ['Anatomía Humana'] },
+          { nombre: 'Bioseguridad y procedimientos de Enfermería', prereq: ['Anatomía Humana'] },
+          { nombre: 'Bioestadística', prereq: ['Matemáticas'] },
+          { nombre: 'Antropología' }
+        ],
+        'CUARTO SEMESTRE': [
+          { nombre: 'Orientación profesional y bioética' },
+          { nombre: 'Fisiopatología Humana', prereq: ['Fisiología Humana'] },
+          { nombre: 'Psicología de la atención al paciente' },
+          { nombre: 'Infectología General e Infecciones asociadas a la atención en Salud', prereq: ['Inmunología Básica'] },
+          { nombre: 'Farmacología General', prereq: ['Fisiología Humana', 'Bioquímica General'] },
+          { nombre: 'Ética' }
+        ]
+      },
+      'TERCER AÑO': {
+        'QUINTO SEMESTRE': [
+          { nombre: 'Radiodiagnóstico I', prereq: ['PRIMER AÑO', 'SEGUNDO AÑO'] },
+          { nombre: 'Anatomía radiológica', prereq: ['PRIMER AÑO', 'SEGUNDO AÑO'] },
+          { nombre: 'Radioprotección y dosimetría', prereq: ['PRIMER AÑO', 'SEGUNDO AÑO'] },
+          { nombre: 'Radiofísica', prereq: ['PRIMER AÑO', 'SEGUNDO AÑO'] },
+          { nombre: 'Epidemiología y Salud pública', prereq: ['PRIMER AÑO', 'SEGUNDO AÑO'] }
+        ],
+        'SEXTO SEMESTRE': [
+          { nombre: 'Radiodiagnóstico II', prereq: ['Radiodiagnóstico I', 'Radioprotección y dosimetría'] },
+          { nombre: 'Electrónica médica', prereq: ['Radiofísica'] },
+          { nombre: 'Patología radiológica', prereq: ['Anatomía radiológica'] },
+          { nombre: 'Administración y gestión en salud', prereq: ['Epidemiología y Salud pública'] }
+        ]
+      },
+      'CUARTO AÑO': {
+        'SEPTIMO SEMESTRE': [
+          { nombre: 'Resonancia Magnética', prereq: ['Radiodiagnóstico II', 'Patología radiológica'] },
+          { nombre: 'Tomografía computada', prereq: ['Radiodiagnóstico II', 'Patología radiológica'] },
+          { nombre: 'Neuroimagenologia', prereq: ['Patología radiológica'] },
+          { nombre: 'Gestión y garantías de calidad en salud', prereq: ['Administración y gestión en salud'] }
+        ],
+        'OCTAVO SEMESTRE': [
+          { nombre: 'Medicina nuclear', prereq: ['Radiodiagnóstico II', 'Patología radiológica'] },
+          { nombre: 'Radioterapia', prereq: ['Tomografía computada'] },
+          { nombre: 'Introducción a la ecografía', prereq: ['Radiodiagnóstico II', 'Patología radiológica'] },
+          { nombre: 'Análisis clínico integrado', prereq: ['SEPTIMO SEMESTRE'] },
+          { nombre: 'Bioestadística aplicada y metodología de la investigación', prereq: ['Epidemiología y Salud pública'] }
+        ]
+      },
+      'QUINTO AÑO': {
+        'NOVENO SEMESTRE': [
+          { nombre: 'Internado', prereq: ['OCTAVO SEMESTRE'] }
+        ],
+        'DECIMO SEMESTRE': [
+          { nombre: 'Seminario de investigación', prereq: ['OCTAVO SEMESTRE', 'Formulación de proyectos'] },
+          { nombre: 'Formulación de proyectos', prereq: ['OCTAVO SEMESTRE', 'Seminario de investigación'] },
+          { nombre: 'Prevención en salud', prereq: ['OCTAVO SEMESTRE'] }
+        ]
       }
-      return div;
-    }
+    };
 
-    function guardarProgreso(id, estado) {
-      localStorage.setItem(id, estado);
-    }
+    const estado = JSON.parse(localStorage.getItem('progresoMalla')) || {};
 
-    function cargarProgreso(id) {
-      return localStorage.getItem(id) === "true";
-    }
+    function renderMalla() {
+      const cont = document.getElementById('malla');
+      cont.innerHTML = '';
+      for (const [año, semestres] of Object.entries(malla)) {
+        const añoDiv = document.createElement('div');
+        añoDiv.className = 'year';
+        const titulo = document.createElement('h2');
+        titulo.textContent = año;
+        añoDiv.appendChild(titulo);
 
-    function render() {
-      contenedor.innerHTML = "";
-      for (const [semestre, ids] of Object.entries(cursos)) {
-        const columna = document.createElement("div");
-        columna.className = "semester";
-        const titulo = document.createElement("h3");
-        titulo.textContent = semestre;
-        columna.appendChild(titulo);
+        for (const [semestre, ramos] of Object.entries(semestres)) {
+          const semDiv = document.createElement('div');
+          semDiv.className = 'semester';
+          const semTitulo = document.createElement('h3');
+          semTitulo.textContent = semestre;
+          semDiv.appendChild(semTitulo);
 
-        ids.forEach(id => {
-          const aprobado = cargarProgreso(id);
-          const prereqOk = !datos[id].prereq || datos[id].prereq.every(p => cargarProgreso(p));
+          ramos.forEach(m => {
+            const el = document.createElement('div');
+            el.className = 'subject';
+            el.textContent = m.nombre;
+            if (estado[m.nombre]) el.classList.add('completed');
 
-          const cursoDiv = crearCurso(id);
-          if (!prereqOk) cursoDiv.classList.add("locked");
-          if (aprobado) cursoDiv.classList.add("approved");
-
-          cursoDiv.addEventListener("click", () => {
-            if (cursoDiv.classList.contains("locked")) return;
-            const nuevo = !cursoDiv.classList.contains("approved");
-            guardarProgreso(id, nuevo);
-            render();
+            const cumplido = !m.prereq || m.prereq.every(pr => estado[pr] || Object.keys(estado).some(k => k.includes(pr) && estado[k]));
+            if (!cumplido) {
+              el.classList.add('locked');
+              el.setAttribute('data-tooltip', 'Requiere: ' + m.prereq.join(', '));
+            } else {
+              el.addEventListener('click', () => {
+                estado[m.nombre] = !estado[m.nombre];
+                localStorage.setItem('progresoMalla', JSON.stringify(estado));
+                renderMalla();
+              });
+            }
+            semDiv.appendChild(el);
           });
-
-          columna.appendChild(cursoDiv);
-        });
-
-        contenedor.appendChild(columna);
+          añoDiv.appendChild(semDiv);
+        }
+        cont.appendChild(añoDiv);
       }
     }
 
-    render();
+    renderMalla();
   </script>
 </body>
 </html>
