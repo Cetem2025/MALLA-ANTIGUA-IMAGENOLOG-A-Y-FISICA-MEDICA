@@ -10,9 +10,6 @@
       background: #f4f4f4;
       margin: 20px;
     }
-    h2 {
-      margin-top: 40px;
-    }
     .semester {
       display: inline-block;
       vertical-align: top;
@@ -62,7 +59,7 @@
   <div id="malla"></div>
 
   <script>
-    const año = {
+    const Años = {
       "Primer Año": ["Semestre 1", "Semestre 2"],
       "Segundo Año": ["Semestre 3", "Semestre 4"],
       "Tercer Año": ["Semestre 5", "Semestre 6"],
@@ -70,17 +67,17 @@
       "Quinto Año": ["Semestre 9", "Semestre 10"]
     };
 
-    const cursos = {
+    const Semestre = {
       "Semestre 1": ["Matemática", "Biología Celular", "Química General y Orgánica", "Inglés I"],
       "Semestre 2": ["Introducción a la Física", "Bioquímica General", "Histoembriología", "Anatomía Humana", "Inglés II"],
       "Semestre 3": ["Inmunología Básica", "Fisiología Humana", "Anatomía Humana Avanzada", "Bioseguridad y Procedimientos de Enfermería", "Estadística"],
       "Semestre 4": ["Orientación Profesional y Bioética", "Fisiopatología Humana", "Psicología de la Atención al Paciente", "Infectología General e Infecciones Asociadas a la Atención en Salud", "Farmacología General"],
-      "Semestre 5": ["Radiodiagnóstico I", "Anatomía Radiológica", "Radioprotección y Dosimetría", "Radiofísica", "Epidemiología y Salud Pública"],
-      "Semestre 6": ["Radiodiagnóstico II", "Electrónica Médica", "Patología Radiológica", "Administración y Gestión en Salud"],
-      "Semestre 7": ["Resonancia Magnética", "Tomografía Computada", "Neuroimagenología", "Gestión y Garantías de Calidad en Salud"],
-      "Semestre 8": ["Medicina Nuclear", "Radioterapia", "Introducción a la Ecografía", "Análisis Clínico Integrado", "Bioestadística Aplicada y Metodología de la Investigación"],
+      "Semestre 5": ["Radiodiagnostico I", "Anatomía radiológica", "Radioprotección y dosimetría", "Radiofísica", "Epidemiología y Salud publica"],
+      "Semestre 6": ["Radiodiagnóstico II", "Electrónica Medica", "Patología Radiológica", "Administración y gestión en salud"],
+      "Semestre 7": ["Resonancia Magnética", "Tomografía Computada", "Neuroimagenologia", "Gestión y garantías de calidad en salud"],
+      "Semestre 8": ["Medicina Nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación"],
       "Semestre 9": ["Internado"],
-      "Semestre 10": ["Seminario de Investigación", "Formulación de Proyectos", "Prevención en Salud"]
+      "Semestre 10": ["Seminario de investigación", "Formulación de proyectos", "Prevención en salud"]
     };
 
     const prerrequisitos = {
@@ -88,98 +85,92 @@
       "Bioquímica General": ["Biología Celular", "Química General y Orgánica"],
       "Histoembriología": ["Biología Celular"],
       "Inglés II": ["Inglés I"],
-
       "Inmunología Básica": ["Histoembriología"],
       "Fisiología Humana": ["Anatomía Humana", "Biología Celular"],
       "Anatomía Humana Avanzada": ["Anatomía Humana"],
       "Bioseguridad y Procedimientos de Enfermería": ["Anatomía Humana"],
       "Estadística": ["Matemática"],
-
       "Fisiopatología Humana": ["Fisiología Humana"],
       "Infectología General e Infecciones Asociadas a la Atención en Salud": ["Inmunología Básica"],
       "Farmacología General": ["Fisiología Humana", "Bioquímica General"],
-
-      "Radiodiagnóstico I": ["Fisiopatología Humana", "Farmacología General"],
-      "Anatomía Radiológica": ["Fisiopatología Humana", "Farmacología General"],
-      "Radioprotección y Dosimetría": ["Fisiopatología Humana", "Farmacología General"],
-      "Radiofísica": ["Fisiopatología Humana", "Farmacología General"],
-      "Epidemiología y Salud Pública": ["Fisiopatología Humana", "Farmacología General"],
-
-      "Radiodiagnóstico II": ["Radiodiagnóstico I", "Radioprotección y Dosimetría"],
-      "Electrónica Médica": ["Radiofísica"],
-      "Patología Radiológica": ["Anatomía Radiológica"],
-      "Administración y Gestión en Salud": ["Epidemiología y Salud Pública"],
-
+      "Radiodiagnostico I": ["Semestre 1", "Semestre 2", "Semestre 3", "Semestre 4"],
+      "Anatomía radiológica": ["Semestre 1", "Semestre 2", "Semestre 3", "Semestre 4"],
+      "Radioprotección y dosimetría": ["Semestre 1", "Semestre 2", "Semestre 3", "Semestre 4"],
+      "Radiofísica": ["Semestre 1", "Semestre 2", "Semestre 3", "Semestre 4"],
+      "Epidemiología y Salud publica": ["Semestre 1", "Semestre 2", "Semestre 3", "Semestre 4"],
+      "Radiodiagnóstico II": ["Radiodiagnóstico I", "Radioprotección y dosimetría"],
+      "Electrónica Medica": ["Radiofísica"],
+      "Patología Radiológica": ["Anatomía radiológica"],
+      "Administración y gestión en salud": ["Epidemiología y Salud publica"],
       "Resonancia Magnética": ["Radiodiagnóstico II", "Patología Radiológica"],
       "Tomografía Computada": ["Radiodiagnóstico II", "Patología Radiológica"],
-      "Neuroimagenología": ["Patología Radiológica"],
-      "Gestión y Garantías de Calidad en Salud": ["Administración y Gestión en Salud"],
-
+      "Neuroimagenologia": ["Patología Radiológica"],
+      "Gestión y garantías de calidad en salud": ["Administración y gestión en salud"],
       "Medicina Nuclear": ["Radiodiagnóstico II", "Patología Radiológica"],
       "Radioterapia": ["Tomografía Computada"],
-      "Introducción a la Ecografía": ["Radiodiagnóstico II", "Patología Radiológica"],
-      "Análisis Clínico Integrado": ["Resonancia Magnética", "Tomografía Computada", "Neuroimagenología"],
-      "Bioestadística Aplicada y Metodología de la Investigación": ["Epidemiología y Salud Pública"],
-
-      "Internado": ["Medicina Nuclear", "Radioterapia", "Introducción a la Ecografía", "Análisis Clínico Integrado"],
-      "Seminario de Investigación": ["Medicina Nuclear", "Radioterapia", "Introducción a la Ecografía", "Análisis Clínico Integrado"],
-      "Formulación de Proyectos": ["Medicina Nuclear", "Radioterapia", "Introducción a la Ecografía", "Análisis Clínico Integrado"],
-      "Prevención en Salud": ["Medicina Nuclear", "Radioterapia", "Introducción a la Ecografía", "Análisis Clínico Integrado"]
+      "Introducción a la ecografía": ["Radiodiagnóstico II", "Patología Radiológica"],
+      "Análisis clínico integrado": ["Semestre 7"],
+      "Bioestadística aplicada y metodología de la investigación": ["Epidemiología y Salud publica"],
+      "Internado": ["Semestre 8"],
+      "Seminario de investigación": ["Semestre 8"],
+      "Formulación de proyectos": ["Semestre 8"],
+      "Prevención en salud": ["Semestre 8"]
     };
 
     const aprobados = JSON.parse(localStorage.getItem("aprobados")) || [];
 
+    function encontrarAño(semestre) {
+      for (const [año, semestres] of Object.entries(Años)) {
+        if (semestres.includes(semestre)) {
+          return año;
+        }
+      }
+      return "";
+    }
+
     function renderMalla() {
       const container = document.getElementById("malla");
       container.innerHTML = "";
+      for (let semestre in Semestre) {
+        const box = document.createElement("div");
+        box.className = "semester";
 
-      for (let nombreAño in año) {
-        const bloqueAño = document.createElement("div");
-        const tituloAño = document.createElement("h2");
-        tituloAño.textContent = nombreAño;
-        bloqueAño.appendChild(tituloAño);
+        const año = encontrarAño(semestre);
+        const title = document.createElement("h3");
+        title.textContent = `${semestre} (${año})`;
+        box.appendChild(title);
 
-        año[nombreAño].forEach(semestre => {
-          const box = document.createElement("div");
-          box.className = "semester";
-          const title = document.createElement("h3");
-          title.textContent = semestre;
-          box.appendChild(title);
+        Semestre[semestre].forEach(curso => {
+          const div = document.createElement("div");
+          div.className = "course";
+          div.textContent = curso;
 
-          cursos[semestre].forEach(curso => {
-            const div = document.createElement("div");
-            div.className = "course";
-            div.textContent = curso;
+          const requisitos = prerrequisitos[curso];
+          const cumplidos = requisitos ? requisitos.every(r => aprobados.includes(r)) : true;
 
-            const requisitos = prerrequisitos[curso];
-            const cumplidos = requisitos ? requisitos.every(r => aprobados.includes(r)) : true;
-
-            if (!cumplidos) {
-              div.classList.add("locked");
-              div.setAttribute("data-tooltip", `Requiere: ${requisitos.join(", ")}`);
-            } else {
-              if (aprobados.includes(curso)) {
-                div.classList.add("approved");
-              }
-              div.addEventListener("click", () => {
-                if (!aprobados.includes(curso)) {
-                  aprobados.push(curso);
-                } else {
-                  const idx = aprobados.indexOf(curso);
-                  aprobados.splice(idx, 1);
-                }
-                localStorage.setItem("aprobados", JSON.stringify(aprobados));
-                renderMalla();
-              });
+          if (!cumplidos) {
+            div.classList.add("locked");
+            div.setAttribute("data-tooltip", `Requiere: ${requisitos.join(", ")}`);
+          } else {
+            if (aprobados.includes(curso)) {
+              div.classList.add("approved");
             }
+            div.addEventListener("click", () => {
+              if (!aprobados.includes(curso)) {
+                aprobados.push(curso);
+              } else {
+                const idx = aprobados.indexOf(curso);
+                aprobados.splice(idx, 1);
+              }
+              localStorage.setItem("aprobados", JSON.stringify(aprobados));
+              renderMalla();
+            });
+          }
 
-            box.appendChild(div);
-          });
-
-          bloqueAño.appendChild(box);
+          box.appendChild(div);
         });
 
-        container.appendChild(bloqueAño);
+        container.appendChild(box);
       }
     }
 
