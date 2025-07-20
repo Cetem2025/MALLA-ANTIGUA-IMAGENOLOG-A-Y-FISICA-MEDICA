@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: 'Georgia', serif;
-      background: #f4f6f8;
+      background: #dac9df;
       padding: 20px;
       color: #333;
       margin: 0;
@@ -16,42 +16,49 @@
       text-align: center;
       font-size: 24px;
       margin-bottom: 30px;
-      color: #2c3e50;
+      color: #81638b;
       padding: 0 10px;
+      text-transform: uppercase;
     }
     .year-container {
       display: flex;
       flex-direction: column;
       gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
     }
     .year {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: 20px;
       padding: 20px;
       border-radius: 12px;
-      border-top: 5px solid #2c3e50;
-      background-color: #fff;
+      border-top: 5px solid #81638b;
+      background-color: #fbd5e5;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      justify-content: center;
     }
     .year-title {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
       font-size: 20px;
       font-weight: bold;
-      margin-bottom: 5px;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 8px;
+      margin-right: 10px;
+      border-right: 2px solid #b695c0;
+      padding-right: 8px;
       text-transform: uppercase;
-      color: #1a237e;
+      color: #81638b;
     }
     .semester-container {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: 20px;
     }
     .semester {
+      min-width: 200px;
       padding: 15px;
-      background: #fdfdfd;
-      border: 1px solid #ccc;
+      background: #f7bfd8;
+      border: 1px solid #b695c0;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
@@ -60,30 +67,31 @@
       font-weight: bold;
       margin-bottom: 12px;
       text-align: center;
-      color: #2c3e50;
+      color: #81638b;
     }
     .course {
       padding: 8px 10px;
       margin: 6px 0;
       border-radius: 6px;
       cursor: pointer;
-      background-color: #f8e1e7;
+      background-color: #b695c0;
+      color: white;
       transition: background-color 0.3s ease;
     }
     .course.approved {
-      background-color: #a5d6a7;
+      background-color: #81638b;
       text-decoration: line-through;
     }
     .course.locked {
-      background-color: #d6d6d6;
+      background-color: #dac9df;
       cursor: not-allowed;
       color: #666;
     }
     .year[data-color='celeste'] {
-      background-color: #e3f2fd;
+      background-color: #dac9df;
     }
     .year[data-color='morado'] {
-      background-color: #ede7f6;
+      background-color: #dac9df;
     }
     @media (max-width: 768px) {
       body {
@@ -93,27 +101,27 @@
         font-size: 20px;
       }
       .year {
-        padding: 15px;
+        flex-direction: column;
       }
       .year-title {
-        font-size: 18px;
+        writing-mode: horizontal-tb;
+        transform: none;
+        margin-right: 0;
+        margin-bottom: 10px;
+        border-right: none;
+        border-bottom: 2px solid #b695c0;
+        padding-right: 0;
+        padding-bottom: 8px;
       }
-      .semester-title {
-        font-size: 16px;
-      }
-      .course {
-        font-size: 14px;
-        padding: 6px 8px;
+      .semester-container {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Malla Interactiva de Tecnología Médica</h1>
-  <div class="scroll-buttons">
-    <button class="scroll-button" onclick="scrollMalla(-600)">‹</button>
-    <button class="scroll-button" onclick="scrollMalla(600)">›</button>
-  </div>
+  <h1>MALLA INTERACTIVA IMAGENOLOGIA Y FISICA MEDICA</h1>
   <div class="year-container" id="malla"></div>
 
   <script>
@@ -131,7 +139,7 @@
       "Semestre 9": ["Internado"],
       "Semestre 10": ["Seminario de investigación", "Formulación de proyectos", "Prevención en salud"]
     };
-      
+
     const semestrePorAnio = {
       "Primer Año": ["Semestre 1", "Semestre 2"],
       "Segundo Año": ["Semestre 3", "Semestre 4"],
@@ -139,7 +147,7 @@
       "Cuarto Año": ["Semestre 7", "Semestre 8"],
       "Quinto Año": ["Semestre 9", "Semestre 10"]
     };
-    
+
     const colorPorAnio = {
       "Primer Año": "celeste",
       "Segundo Año": "celeste",
@@ -147,7 +155,7 @@
       "Cuarto Año": "morado",
       "Quinto Año": "morado"
     };
-    
+
     const prerrequisitos = {
       "Introducción a la Física": ["Matemáticas"],
       "Bioquímica General": ["Biología Celular", "Química General y Orgánica"],
@@ -192,7 +200,7 @@
       "Prevención en salud": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación"]
     };
 
-  const estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
+    const estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
 
     for (const anio in semestrePorAnio) {
       const yearDiv = document.createElement("div");
@@ -250,4 +258,3 @@
   </script>
 </body>
 </html>
-
