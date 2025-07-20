@@ -83,6 +83,53 @@
   <div class="container" id="malla"></div>
 
   <script>
+    const subjectsData = {
+      'Matemáticas': {},
+      'Biología Celular': {},
+      'Química general y Orgánica': {},
+      'Inglés I': {},
+      'Introducción a la física': { prereq: ['Matemáticas'] },
+      'Bioquímica General': { prereq: ['Biología Celular'] },
+      'Histoembriología': {},
+      'Anatomía Humana': {},
+      'Inglés II': { prereq: ['Inglés I'] },
+      'Estrategias para el aprendizaje': {},
+      'Inmunología Básica': { prereq: ['Bioquímica General'] },
+      'Fisiología Humana': { prereq: ['Bioquímica General'] },
+      'Anatomía Humana Avanzada': { prereq: ['Anatomía Humana'] },
+      'Bioseguridad y procedimientos de Enfermería': {},
+      'Bioestadística': {},
+      'Antropología': {},
+      'Orientación profesional y bioética': {},
+      'Fisiopatología Humana': { prereq: ['Fisiología Humana'] },
+      'Psicología de la atención al paciente': {},
+      'Infectología General e Infecciones asociadas a la atención en Salud': {},
+      'Farmacología General': {},
+      'Ética': {},
+      'Radiodiagnóstico I': { prereq: ['Introducción a la física'] },
+      'Anatomía radiológica': { prereq: ['Anatomía Humana Avanzada'] },
+      'Radioprotección y dosimetría': {},
+      'Radiofísica': {},
+      'Epidemiología y Salud pública': {},
+      'Radiodiagnóstico II': { prereq: ['Radiodiagnóstico I'] },
+      'Electrónica médica': {},
+      'Patología radiológica': {},
+      'Administración y gestión en salud': {},
+      'Resonancia Magnética': { prereq: ['Radiodiagnóstico II'] },
+      'Tomografía computada': {},
+      'Neuroimagenologia': {},
+      'Gestión y garantías de calidad en salud': {},
+      'Medicina nuclear': {},
+      'Radioterapia': {},
+      'Introducción a la ecografía': {},
+      'Análisis clínico integrado': {},
+      'Bioestadística aplicada y metodología de la investigación': {},
+      'Internado': {},
+      'Seminario de investigación': {},
+      'Formulación de proyectos': {},
+      'Prevención en salud': {}
+    };
+
     const malla = {
       'PRIMER AÑO': {
         '1° Semestre': ['Matemáticas', 'Biología Celular', 'Química general y Orgánica', 'Inglés I'],
@@ -106,7 +153,23 @@
       }
     };
 
-    const renderMalla = () => {
+    let completed = JSON.parse(localStorage.getItem('completedSubjects') || '[]');
+
+    function isUnlocked(subject) {
+      const prereq = subjectsData[subject]?.prereq || [];
+      return prereq.every(p => completed.includes(p));
+    }
+
+    function toggleSubject(subject) {
+      if (!isUnlocked(subject)) return;
+      const idx = completed.indexOf(subject);
+      if (idx >= 0) completed.splice(idx, 1);
+      else completed.push(subject);
+      localStorage.setItem('completedSubjects', JSON.stringify(completed));
+      renderMalla();
+    }
+
+    function renderMalla() {
       const cont = document.getElementById('malla');
       cont.innerHTML = '';
 
@@ -126,9 +189,14 @@
           semDiv.appendChild(semTitle);
 
           ramos.forEach(ramo => {
+            const unlocked = isUnlocked(ramo);
             const ramoDiv = document.createElement('div');
             ramoDiv.className = 'subject';
+            if (!unlocked) ramoDiv.classList.add('locked');
+            if (completed.includes(ramo)) ramoDiv.classList.add('completed');
             ramoDiv.textContent = ramo;
+            ramoDiv.onclick = () => toggleSubject(ramo);
+            if (!unlocked) ramoDiv.setAttribute('data-tooltip', `Prerrequisitos: ${subjectsData[ramo]?.prereq?.join(', ')}`);
             semDiv.appendChild(ramoDiv);
           });
 
@@ -137,7 +205,7 @@
 
         cont.appendChild(col);
       }
-    };
+    }
 
     renderMalla();
   </script>
