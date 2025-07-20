@@ -92,7 +92,7 @@
       "Semestre 1": ["Matemáticas", "Biología Celular", "Química General y Orgánica", "Inglés I"],
       "Semestre 2": ["Introducción a la Física", "Bioquímica General", "Histoembriología", "Inglés II", "Anatomía Humana", "Estrategias Para el Aprendizaje"],
       "Semestre 3": ["Inmunología Básica", "Fisiología Humana", "Anatomía Humana Avanzada", "Bioestadística", "Bioseguridad y procedimientos de Enfermería", "Antropología"],
-      "Semestre 4": ["Orientación profesional y Bioética", "Fisiopatologia Humana", "Psicologia de la Atención al Paciente", " Infectología General e Infecciones Asociadas a la Atención en Salud", "Farmacología General"],
+      "Semestre 4": ["Orientación profesional y Bioética", "Fisiopatologia Humana", "Psicologia de la Atención al Paciente", "Infectología General e Infecciones Asociadas a la Atención en Salud", "Farmacología General"],
       "Semestre 5": ["Radiodiagnóstico I", "Anatomía radiológica", "Radioprotección y dosimetría", "Radiofísica", "Epidemiología y Salud publica"],
       "Semestre 6": ["Radiodiagnóstico II", "Electrónica medica", "Patología radiológica", "Administración y gestión en salud"],
       "Semestre 7": ["Resonancia Magnética", "Tomografía computada", "Neuroimagenologia", "Gestión y garantías de calidad en salud"],
@@ -118,33 +118,43 @@
     };
 
     const prerrequisitos = {
-       "Introducción a la Física": ["Matemáticas"],
+      "Introducción a la Física": ["Matemáticas"],
       "Bioquímica General": ["Biología Celular", "Química General y Orgánica"],
       "Histoembriología": ["Biología Celular"],
       "Inglés II": ["Inglés I"],
+      
       "Inmunología Básica": ["Histoembriología"],
       "Fisiología Humana": ["Anatomía Humana", "Biología Celular"],
       "Anatomía Humana Avanzada": ["Anatomía Humana"],
       "Bioseguridad y procedimientos de Enfermería": ["Anatomía Humana"],
       "Bioestadística": ["Matemáticas"],
-      "Radiodiagnóstico I": ["Primer Año", "Segundo Año"],
-      "Anatomía radiológica": ["Primer Año", "Segundo Año"],
-      "Radioprotección y dosimetría": ["Primer Año", "Segundo Año"],
-      "Radiofísica": ["Primer Año", "Segundo Año"],
-      "Epidemiología y Salud publica": ["Primer Año", "Segundo Año"],
+
+      "Fisiopatología Humana":["Fisiología Humana"],
+      "Infectología General e Infecciones Asociadas a la Atención en Salud": ["Inmunología Básica"],
+      "Farmacología General": ["Fisiología Humana", "Bioquímica General"],
+      
+      "Radiodiagnóstico I": ["Matemáticas", "Biología Celular", "Química General y Orgánica", "Inglés I", "Introducción a la Física", "Bioquímica General", "Histoembriología", "Inglés II", "Inmunología Básica", "Fisiología Humana", "Anatomía Humana", "Bioestadística", "Anatomía Humana Avanzada", "Bioseguridad y procedimientos de Enfermería", "Orientación profesional y Bioética", "Fisiopatologia Humana", "Psicologia de la Atención al Paciente", "Infectología General e Infecciones Asociadas a la Atención en Salud", "Farmacología General"],
+      "Anatomía radiológica": ["Matemáticas", "Biología Celular", "Química General y Orgánica", "Inglés I", "Introducción a la Física", "Bioquímica General", "Histoembriología", "Inglés II", "Inmunología Básica", "Fisiología Humana", "Anatomía Humana", "Bioestadística", "Anatomía Humana Avanzada", "Bioseguridad y procedimientos de Enfermería", "Orientación profesional y Bioética", "Fisiopatologia Humana", "Psicologia de la Atención al Paciente", "Infectología General e Infecciones Asociadas a la Atención en Salud", "Farmacología General"],
+      "Radioprotección y dosimetría": ["Matemáticas", "Biología Celular", "Química General y Orgánica", "Inglés I", "Introducción a la Física", "Bioquímica General", "Histoembriología", "Inglés II", "Inmunología Básica", "Fisiología Humana", "Anatomía Humana", "Bioestadística", "Anatomía Humana Avanzada", "Bioseguridad y procedimientos de Enfermería", "Orientación profesional y Bioética", "Fisiopatologia Humana", "Psicologia de la Atención al Paciente", "Infectología General e Infecciones Asociadas a la Atención en Salud", "Farmacología General"],
+      "Radiofísica": ["Matemáticas", "Biología Celular", "Química General y Orgánica", "Inglés I", "Introducción a la Física", "Bioquímica General", "Histoembriología", "Inglés II", "Inmunología Básica", "Fisiología Humana", "Anatomía Humana", "Bioestadística", "Anatomía Humana Avanzada", "Bioseguridad y procedimientos de Enfermería", "Orientación profesional y Bioética", "Fisiopatologia Humana", "Psicologia de la Atención al Paciente", "Infectología General e Infecciones Asociadas a la Atención en Salud", "Farmacología General"],
+      "Epidemiología y Salud publica": ["Matemáticas", "Biología Celular", "Química General y Orgánica", "Inglés I", "Introducción a la Física", "Bioquímica General", "Histoembriología", "Inglés II", "Inmunología Básica", "Fisiología Humana", "Anatomía Humana", "Bioestadística", "Anatomía Humana Avanzada", "Bioseguridad y procedimientos de Enfermería", "Orientación profesional y Bioética", "Fisiopatologia Humana", "Psicologia de la Atención al Paciente", "Infectología General e Infecciones Asociadas a la Atención en Salud", "Farmacología General"],
+      
       "Radiodiagnóstico II": ["Radiodiagnóstico I", "Radioprotección y dosimetría"],
       "Electrónica medica": ["Radiofísica"],
       "Patología radiológica": ["Anatomía radiológica"],
       "Administración y gestión en salud": ["Epidemiología y Salud publica"],
+      
       "Resonancia Magnética": ["Radiodiagnóstico II", "Patología radiológica"],
       "Tomografía computada": ["Radiodiagnóstico II", "Patología radiológica"],
       "Neuroimagenologia": ["Patología radiológica"],
       "Gestión y garantías de calidad en salud": ["Administración y gestión en salud"],
+      
       "Medicina nuclear": ["Radiodiagnóstico II", "Patología radiológica"],
       "Radioterapia": ["Tomografía computada"],
       "Introducción a la ecografía": ["Radiodiagnóstico II", "Patología radiológica"],
       "Análisis clínico integrado": ["Resonancia Magnética", "Tomografía computada", "Neuroimagenologia", "Gestión y garantías de calidad en salud"],
       "Bioestadística aplicada y metodología de la investigación": ["Epidemiología y Salud publica"],
+      
       "Internado": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación"],
       "Seminario de investigación": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación", "Formulación de proyectos"],
       "Formulación de proyectos": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación", "Seminario de investigación"],
