@@ -190,8 +190,8 @@
       "Bioestadística aplicada y metodología de la investigación": ["Epidemiología y Salud publica"],
       
       "Internado": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación"],
-      "Seminario de investigación": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación", "Formulación de proyectos"],
-      "Formulación de proyectos": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación", "Seminario de investigación"],
+      "Seminario de investigación": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación"],
+      "Formulación de proyectos": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación"],
       "Prevención en salud": ["Medicina nuclear", "Radioterapia", "Introducción a la ecografía", "Análisis clínico integrado", "Bioestadística aplicada y metodología de la investigación"]
     };
 
@@ -235,6 +235,7 @@
           const div = document.createElement("div");
           div.className = "course";
           div.textContent = curso;
+          div.dataset.nombre = curso;
 
           actualizarEstadoCurso(div, curso);
 
@@ -245,9 +246,9 @@
   localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
 
   // Actualiza todos los cursos en pantalla
-  document.querySelectorAll('.course').forEach(cursoDiv => {
-    const nombre = cursoDiv.textContent;
-    actualizarEstadoCurso(cursoDiv, nombre);
+document.querySelectorAll('.course').forEach(cursoDiv => {
+      const nombre = cursoDiv.dataset.nombre;
+      actualizarEstadoCurso(cursoDiv, nombre);
   });
 });
 
