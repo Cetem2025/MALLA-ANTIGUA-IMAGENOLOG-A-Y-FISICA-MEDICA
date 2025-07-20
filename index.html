@@ -12,21 +12,21 @@
       color: #2c2c2c;
       margin: 0;
     }
-     .reset-btn {
-    display: block;
-    margin: 0 auto 20px auto;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #ba68c8;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .reset-btn:hover {
-    background-color: #9c27b0;
-  }
+.reset-btn {
+  display: block;
+  margin: 40px auto 20px auto;  /* más espacio arriba */
+  padding: 10px 20px;
+  background-color: #ba68c8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+.reset-btn:hover {
+  background-color: #9c27b0;
+}
     h1 {
       text-align: center;
       font-size: 24px;
@@ -212,64 +212,64 @@
     };
 
     
-    const estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
+  const estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
 
-function actualizarEstadoCurso(div, curso) {
-  const requisitos = prerrequisitos[curso] || [];
-  const aprobado = !!estadoCursos[curso];
-  const bloqueado = requisitos.some(r => !estadoCursos[r]);
+  function actualizarEstadoCurso(div, curso) {
+    const requisitos = prerrequisitos[curso] || [];
+    const aprobado = !!estadoCursos[curso];
+    const bloqueado = requisitos.some(r => !estadoCursos[r]);
 
-  div.classList.remove("approved", "locked");
-  div.title = "";
+    div.classList.remove("approved", "locked");
+    div.title = "";
 
-  if (aprobado) {
-    div.classList.add("approved");
-  } else if (bloqueado) {
-    div.classList.add("locked");
-    div.title = `Prerrequisitos: ${requisitos.filter(r => !estadoCursos[r]).join(", ")}`;
+    if (aprobado) {
+      div.classList.add("approved");
+    } else if (bloqueado) {
+      div.classList.add("locked");
+      div.title = `Prerrequisitos: ${requisitos.filter(r => !estadoCursos[r]).join(", ")}`;
+    }
   }
-}
-    for (const anio in semestrePorAnio) {
-      const yearDiv = document.createElement("div");
-      yearDiv.className = "year";
-      yearDiv.dataset.color = colorPorAnio[anio] || "";
 
-      const yearTitle = document.createElement("div");
-      yearTitle.className = "year-title";
-      yearTitle.textContent = anio;
-      yearDiv.appendChild(yearTitle);
+  for (const anio in semestrePorAnio) {
+    const yearDiv = document.createElement("div");
+    yearDiv.className = "year";
+    yearDiv.dataset.color = colorPorAnio[anio] || "";
 
-      semestrePorAnio[anio].forEach(sem => {
-        const semDiv = document.createElement("div");
-        semDiv.className = "semester";
+    const yearTitle = document.createElement("div");
+    yearTitle.className = "year-title";
+    yearTitle.textContent = anio;
+    yearDiv.appendChild(yearTitle);
 
-        const semTitle = document.createElement("div");
-        semTitle.className = "semester-title";
-        semTitle.textContent = sem;
-        semDiv.appendChild(semTitle);
+    semestrePorAnio[anio].forEach(sem => {
+      const semDiv = document.createElement("div");
+      semDiv.className = "semester";
 
-        Semestre[sem].forEach(curso => {
-          const div = document.createElement("div");
-          div.className = "course";
-          div.textContent = curso;
-          div.dataset.nombre = curso;
+      const semTitle = document.createElement("div");
+      semTitle.className = "semester-title";
+      semTitle.textContent = sem;
+      semDiv.appendChild(semTitle);
 
-          actualizarEstadoCurso(div, curso);
+      Semestre[sem].forEach(curso => {
+        const div = document.createElement("div");
+        div.className = "course";
+        div.textContent = curso;
+        div.dataset.nombre = curso;
 
-div.addEventListener("click", () => {
-  if (div.classList.contains("locked")) return;
+        actualizarEstadoCurso(div, curso);
 
-  estadoCursos[curso] = !estadoCursos[curso];
-  localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
+        div.addEventListener("click", () => {
+          if (div.classList.contains("locked")) return;
 
-  // Actualiza todos los cursos con el nuevo estado
-  document.querySelectorAll('.course').forEach(cursoDiv => {
-    const nombre = cursoDiv.dataset.nombre;
-    actualizarEstadoCurso(cursoDiv, nombre);
-  });
-});
-});
-        semDiv.appendChild(div);
+          estadoCursos[curso] = !estadoCursos[curso];
+          localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
+
+          document.querySelectorAll('.course').forEach(cursoDiv => {
+            const nombre = cursoDiv.dataset.nombre;
+            actualizarEstadoCurso(cursoDiv, nombre);
+          });
+        });
+
+        semDiv.appendChild(div); 
       });
 
       yearDiv.appendChild(semDiv);
@@ -277,16 +277,17 @@ div.addEventListener("click", () => {
 
     malla.appendChild(yearDiv);
   }
-    const resetBtn = document.createElement("button");
-resetBtn.textContent = "Reiniciar Malla";
-resetBtn.className = "reset-btn";
-resetBtn.addEventListener("click", () => {
-  if (confirm("¿Estás seguro que deseas reiniciar la malla?")) {
-    localStorage.removeItem("estadoCursos");
-    location.reload();
-  }
-});
-document.body.insertBefore(resetBtn, malla);
+
+  const resetBtn = document.createElement("button");
+  resetBtn.textContent = "Reiniciar Malla";
+  resetBtn.className = "reset-btn";
+  resetBtn.addEventListener("click", () => {
+    if (confirm("¿Estás seguro que deseas reiniciar la malla?")) {
+      localStorage.removeItem("estadoCursos");
+      location.reload();
+    }
+  });
+  document.body.appendChild(resetBtn);
   </script>
 </body>
 </html>
