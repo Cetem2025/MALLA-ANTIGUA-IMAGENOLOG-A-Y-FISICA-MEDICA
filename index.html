@@ -238,16 +238,18 @@
 
           actualizarEstadoCurso(div, curso);
 
-          div.addEventListener("click", () => {
-          if (div.classList.contains("locked")) return;
+       div.addEventListener("click", () => {
+  if (div.classList.contains("locked")) return;
 
-          estadoCursos[curso] = !estadoCursos[curso];
-          localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
-          document.querySelectorAll('.course').forEach(cursoDiv => {
-            const nombre = cursoDiv.textContent;
-            actualizarEstadoCurso(cursoDiv, nombre);
-          });
-        });
+  estadoCursos[curso] = !estadoCursos[curso];
+  localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
+
+  // Actualiza todos los cursos en pantalla
+  document.querySelectorAll('.course').forEach(cursoDiv => {
+    const nombre = cursoDiv.textContent;
+    actualizarEstadoCurso(cursoDiv, nombre);
+  });
+});
 
         semDiv.appendChild(div);
       });
