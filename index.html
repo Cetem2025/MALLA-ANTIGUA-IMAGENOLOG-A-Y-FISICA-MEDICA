@@ -85,124 +85,59 @@
   <script>
     const malla = {
       'PRIMER AÑO': {
-        'PRIMER SEMESTRE': [
-          { nombre: 'Matemáticas' },
-          { nombre: 'Biología Celular' },
-          { nombre: 'Química general y Orgánica' },
-          { nombre: 'Inglés I' }
-        ],
-        'SEGUNDO SEMESTRE': [
-          { nombre: 'Introducción a la física', prereq: ['Matemáticas'] },
-          { nombre: 'Bioquímica General', prereq: ['Biología Celular', 'Química general y Orgánica'] },
-          { nombre: 'Histoembriología', prereq: ['Biología Celular'] },
-          { nombre: 'Anatomía Humana' },
-          { nombre: 'Inglés II', prereq: ['Inglés I'] },
-          { nombre: 'Estrategias para el aprendizaje' }
-        ]
+        '1° Semestre': ['Matemáticas', 'Biología Celular', 'Química general y Orgánica', 'Inglés I'],
+        '2° Semestre': ['Introducción a la física', 'Bioquímica General', 'Histoembriología', 'Anatomía Humana', 'Inglés II', 'Estrategias para el aprendizaje']
       },
       'SEGUNDO AÑO': {
-        'TERCER SEMESTRE': [
-          { nombre: 'Inmunología Básica', prereq: ['Histoembriología'] },
-          { nombre: 'Fisiología Humana', prereq: ['Anatomía Humana', 'Biología Celular'] },
-          { nombre: 'Anatomía Humana Avanzada', prereq: ['Anatomía Humana'] },
-          { nombre: 'Bioseguridad y procedimientos de Enfermería', prereq: ['Anatomía Humana'] },
-          { nombre: 'Bioestadística', prereq: ['Matemáticas'] },
-          { nombre: 'Antropología' }
-        ],
-        'CUARTO SEMESTRE': [
-          { nombre: 'Orientación profesional y bioética' },
-          { nombre: 'Fisiopatología Humana', prereq: ['Fisiología Humana'] },
-          { nombre: 'Psicología de la atención al paciente' },
-          { nombre: 'Infectología General e Infecciones asociadas a la atención en Salud', prereq: ['Inmunología Básica'] },
-          { nombre: 'Farmacología General', prereq: ['Fisiología Humana', 'Bioquímica General'] },
-          { nombre: 'Ética' }
-        ]
+        '3° Semestre': ['Inmunología Básica', 'Fisiología Humana', 'Anatomía Humana Avanzada', 'Bioseguridad y procedimientos de Enfermería', 'Bioestadística', 'Antropología'],
+        '4° Semestre': ['Orientación profesional y bioética', 'Fisiopatología Humana', 'Psicología de la atención al paciente', 'Infectología General e Infecciones asociadas a la atención en Salud', 'Farmacología General', 'Ética']
       },
       'TERCER AÑO': {
-        'QUINTO SEMESTRE': [
-          { nombre: 'Radiodiagnóstico I', prereq: ['PRIMER AÑO', 'SEGUNDO AÑO'] },
-          { nombre: 'Anatomía radiológica', prereq: ['PRIMER AÑO', 'SEGUNDO AÑO'] },
-          { nombre: 'Radioprotección y dosimetría', prereq: ['PRIMER AÑO', 'SEGUNDO AÑO'] },
-          { nombre: 'Radiofísica', prereq: ['PRIMER AÑO', 'SEGUNDO AÑO'] },
-          { nombre: 'Epidemiología y Salud pública', prereq: ['PRIMER AÑO', 'SEGUNDO AÑO'] }
-        ],
-        'SEXTO SEMESTRE': [
-          { nombre: 'Radiodiagnóstico II', prereq: ['Radiodiagnóstico I', 'Radioprotección y dosimetría'] },
-          { nombre: 'Electrónica médica', prereq: ['Radiofísica'] },
-          { nombre: 'Patología radiológica', prereq: ['Anatomía radiológica'] },
-          { nombre: 'Administración y gestión en salud', prereq: ['Epidemiología y Salud pública'] }
-        ]
+        '5° Semestre': ['Radiodiagnóstico I', 'Anatomía radiológica', 'Radioprotección y dosimetría', 'Radiofísica', 'Epidemiología y Salud pública'],
+        '6° Semestre': ['Radiodiagnóstico II', 'Electrónica médica', 'Patología radiológica', 'Administración y gestión en salud']
       },
       'CUARTO AÑO': {
-        'SEPTIMO SEMESTRE': [
-          { nombre: 'Resonancia Magnética', prereq: ['Radiodiagnóstico II', 'Patología radiológica'] },
-          { nombre: 'Tomografía computada', prereq: ['Radiodiagnóstico II', 'Patología radiológica'] },
-          { nombre: 'Neuroimagenologia', prereq: ['Patología radiológica'] },
-          { nombre: 'Gestión y garantías de calidad en salud', prereq: ['Administración y gestión en salud'] }
-        ],
-        'OCTAVO SEMESTRE': [
-          { nombre: 'Medicina nuclear', prereq: ['Radiodiagnóstico II', 'Patología radiológica'] },
-          { nombre: 'Radioterapia', prereq: ['Tomografía computada'] },
-          { nombre: 'Introducción a la ecografía', prereq: ['Radiodiagnóstico II', 'Patología radiológica'] },
-          { nombre: 'Análisis clínico integrado', prereq: ['SEPTIMO SEMESTRE'] },
-          { nombre: 'Bioestadística aplicada y metodología de la investigación', prereq: ['Epidemiología y Salud pública'] }
-        ]
+        '7° Semestre': ['Resonancia Magnética', 'Tomografía computada', 'Neuroimagenologia', 'Gestión y garantías de calidad en salud'],
+        '8° Semestre': ['Medicina nuclear', 'Radioterapia', 'Introducción a la ecografía', 'Análisis clínico integrado', 'Bioestadística aplicada y metodología de la investigación']
       },
       'QUINTO AÑO': {
-        'NOVENO SEMESTRE': [
-          { nombre: 'Internado', prereq: ['OCTAVO SEMESTRE'] }
-        ],
-        'DECIMO SEMESTRE': [
-          { nombre: 'Seminario de investigación', prereq: ['OCTAVO SEMESTRE', 'Formulación de proyectos'] },
-          { nombre: 'Formulación de proyectos', prereq: ['OCTAVO SEMESTRE', 'Seminario de investigación'] },
-          { nombre: 'Prevención en salud', prereq: ['OCTAVO SEMESTRE'] }
-        ]
+        '9° Semestre': ['Internado'],
+        '10° Semestre': ['Seminario de investigación', 'Formulación de proyectos', 'Prevención en salud']
       }
     };
 
-    const estado = JSON.parse(localStorage.getItem('progresoMalla')) || {};
-
-    function renderMalla() {
+    const renderMalla = () => {
       const cont = document.getElementById('malla');
       cont.innerHTML = '';
-      for (const [año, semestres] of Object.entries(malla)) {
-        const añoDiv = document.createElement('div');
-        añoDiv.className = 'year';
-        const titulo = document.createElement('h2');
-        titulo.textContent = año;
-        añoDiv.appendChild(titulo);
 
-        for (const [semestre, ramos] of Object.entries(semestres)) {
+      for (const [año, semestres] of Object.entries(malla)) {
+        const col = document.createElement('div');
+        col.className = 'year';
+
+        const title = document.createElement('h2');
+        title.textContent = año;
+        col.appendChild(title);
+
+        for (const [sem, ramos] of Object.entries(semestres)) {
           const semDiv = document.createElement('div');
           semDiv.className = 'semester';
-          const semTitulo = document.createElement('h3');
-          semTitulo.textContent = semestre;
-          semDiv.appendChild(semTitulo);
+          const semTitle = document.createElement('h3');
+          semTitle.textContent = sem;
+          semDiv.appendChild(semTitle);
 
-          ramos.forEach(m => {
-            const el = document.createElement('div');
-            el.className = 'subject';
-            el.textContent = m.nombre;
-            if (estado[m.nombre]) el.classList.add('completed');
-
-            const cumplido = !m.prereq || m.prereq.every(pr => estado[pr] || Object.keys(estado).some(k => k.includes(pr) && estado[k]));
-            if (!cumplido) {
-              el.classList.add('locked');
-              el.setAttribute('data-tooltip', 'Requiere: ' + m.prereq.join(', '));
-            } else {
-              el.addEventListener('click', () => {
-                estado[m.nombre] = !estado[m.nombre];
-                localStorage.setItem('progresoMalla', JSON.stringify(estado));
-                renderMalla();
-              });
-            }
-            semDiv.appendChild(el);
+          ramos.forEach(ramo => {
+            const ramoDiv = document.createElement('div');
+            ramoDiv.className = 'subject';
+            ramoDiv.textContent = ramo;
+            semDiv.appendChild(ramoDiv);
           });
-          añoDiv.appendChild(semDiv);
+
+          col.appendChild(semDiv);
         }
-        cont.appendChild(añoDiv);
+
+        cont.appendChild(col);
       }
-    }
+    };
 
     renderMalla();
   </script>
