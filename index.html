@@ -6,17 +6,18 @@
   <title>Malla Interactiva Tecnología Médica</title>
   <style>
     body {
-      font-family: 'Georgia', serif;
-      background: #fdf6fb;
-      padding: 20px;
-      color: #2c2c2c;
-      margin: 0;
-    }
+  font-family: 'Georgia', serif;
+  background: #ffffff;
+  padding: 20px;
+  color: #2c2c2c;
+  margin: 0;
+}
+
 .reset-btn {
   display: block;
-  margin: 40px auto 20px auto;  /* más espacio arriba */
+  margin: 40px auto 20px auto;
   padding: 10px 20px;
-  background-color: #ba68c8;
+  background-color: #409dc4;
   color: white;
   border: none;
   border-radius: 8px;
@@ -25,109 +26,124 @@
   transition: background-color 0.3s ease;
 }
 .reset-btn:hover {
-  background-color: #9c27b0;
+  background-color: #2a7ca3;
 }
-    h1 {
-      text-align: center;
-      font-size: 24px;
-      margin-bottom: 30px;
-      color: #4a235a;
-      padding: 0 10px;
-      text-transform: uppercase;
-    }
-    .year-container {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .year {
-      display: flex;
-      flex-direction: row;
-      gap: 20px;
-      padding: 20px;
-      border-radius: 12px;
-      border-top: 5px solid #d2a3dc;
-      background-color: #ffffff;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      justify-content: center;
-    }
-    .year-title {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      font-size: 20px;
-      font-weight: bold;
-      margin-right: 10px;
-      border-right: 2px solid #ba68c8;
-      padding-right: 8px;
-      text-transform: uppercase;
-      color: #4a235a;
-    }
-    .semester-container {
-      display: flex;
-      flex-direction: row;
-      gap: 20px;
-    }
-    .semester {
-      min-width: 200px;
-      padding: 15px;
-      background: #f4e1f4;
-      border: 1px solid #d8bfd8;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    }
-    .semester-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 12px;
-      text-align: center;
-      color: #6a1b9a;
-    }
-    .course {
-      padding: 8px 10px;
-      margin: 6px 0;
-      border-radius: 6px;
-      cursor: pointer;
-      background-color: #ce93d8;
-      color: #fff;
-      transition: background-color 0.3s ease;
-    }
-    .course.approved {
-      background-color: #a5d6a7;
-      text-decoration: line-through;
-      color: #2e7d32;
-    }
-    .course.locked {
-      background-color: #e0e0e0;
-      cursor: not-allowed;
-      color: #9e9e9e;
-    }
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-      h1 {
-        font-size: 20px;
-      }
-      .year {
-        flex-direction: column;
-      }
-      .year-title {
-        writing-mode: horizontal-tb;
-        transform: none;
-        margin-right: 0;
-        margin-bottom: 10px;
-        border-right: none;
-        border-bottom: 2px solid #ba68c8;
-        padding-right: 0;
-        padding-bottom: 8px;
-      }
-      .semester-container {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #2c2c2c;
+  padding: 0 10px;
+  text-transform: uppercase;
+}
+
+.year-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.year {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  border-top: 5px solid #5ab2da;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  justify-content: center;
+}
+
+.year-title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
+  border-right: 2px solid #409dc4;
+  padding-right: 8px;
+  text-transform: uppercase;
+  color: #2c2c2c;
+}
+
+.semester-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.semester {
+  min-width: 200px;
+  padding: 15px;
+  background: #abdffa;
+  border: 1px solid #8bd3f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.semester-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-align: center;
+  color: #2c2c2c;
+}
+
+.course {
+  padding: 8px 10px;
+  margin: 6px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #5ab2da;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+.course.approved {
+  background-color: #a5d6a7;
+  text-decoration: line-through;
+  color: #2e7d32;
+}
+
+.course.locked {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+  color: #9e9e9e;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .year {
+    flex-direction: column;
+  }
+
+  .year-title {
+    writing-mode: horizontal-tb;
+    transform: none;
+    margin-right: 0;
+    margin-bottom: 10px;
+    border-right: none;
+    border-bottom: 2px solid #409dc4;
+    padding-right: 0;
+    padding-bottom: 8px;
+  }
+
+  .semester-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
   </style> 
 </head>
 <body>
